@@ -79,6 +79,8 @@ function addBook() {
   removeButton.addEventListener('click', removeBook);
   localStorage.setItem('myStringifyStorage', JSON.stringify(books));
   localStorage.setItem('itemCount', JSON.stringify(idCount));
+  bookTitle.value = '';
+  bookAuthor.value = '';
 }
 
 submitButton.addEventListener('click', addBook);
