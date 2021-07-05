@@ -1,6 +1,6 @@
 const books = [];
 
-function book(id, title, author) {
+function Book(id, title, author) {
   this.id = id;
   this.title = title;
   this.author = author;
@@ -15,11 +15,11 @@ if (!localStorage.myStringifyStorage) {
   localStorage.setItem('myStringifyStorage', JSON.stringify(books));
 }
 
-function removeBook(){
+function removeBook() {
   bookList.removeChild(document.getElementById(`book-${this.id}`));
   let index = 0;
   for (let i = 0; i < books.length; i += 1) {
-    if (books[i].id == this.id) {
+    if (books[i].id === this.id) {
       index = i;
     }
   }
@@ -37,20 +37,16 @@ for (let i = 0; i < localStorageBooks.length; i += 1) {
   const bookTitleP = document.createElement('p');
   bookTitleP.innerHTML = localStorageBooks[i].title;
   bookLi.appendChild(bookTitleP);
-  
   const bookAuthorP = document.createElement('p');
   bookAuthorP.innerHTML = localStorageBooks[i].author;
   bookLi.appendChild(bookAuthorP);
-  
   const removeButton = document.createElement('button');
   removeButton.className = 'remove-button';
   removeButton.innerHTML = 'Remove';
   removeButton.id = localStorageBooks[i].id;
   bookLi.appendChild(removeButton);
-  
   const hrLi = document.createElement('hr');
   bookLi.appendChild(hrLi);
-  
   removeButton.addEventListener('click', removeBook);
   if (localStorageBooks[i].id > idCount) {
     idCount = localStorageBooks[i].id;
@@ -59,7 +55,7 @@ for (let i = 0; i < localStorageBooks.length; i += 1) {
 
 function addBook() {
   idCount += 1;
-  const newBook = new book(idCount, bookTitle.value, bookAuthor.value);
+  const newBook = new Book(idCount, bookTitle.value, bookAuthor.value);
   books.push(newBook);
   const bookLi = document.createElement('li');
   bookLi.id = `book-${newBook.id}`;
