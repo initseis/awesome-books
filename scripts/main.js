@@ -1,86 +1,114 @@
-const books = [];
-const count = 0;
-
-function Book(id, title, author) {
-  this.id = id;
-  this.title = title;
-  this.author = author;
-}
-
-const submitButton = document.getElementById('submit-button');
+const mainForm = document.getElementById('main-form');
 const bookTitle = document.getElementById('book-title');
 const bookAuthor = document.getElementById('book-author');
 const bookList = document.querySelector('.book-list');
 
-if (!localStorage.myStringifyStorage) {
-  localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+class Book {
+  constructor(id, title, author) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+  }
 }
 
-if (!localStorage.itemCount) {
-  localStorage.setItem('itemCount', JSON.stringify(count));
+class Storage {
+  static loadBook() {
+    let books = [];
+    if (!localStorage.myStringifyStorage) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('myStringifyStorage'));
+    }
+    return books;
+  }
+
+  static addBookToStorage(newBook) {
+    const books = Storage.loadBook();
+    books.push(newBook);
+    localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+  }
+
+  static removeFromStorage(removeElement) {
+    const books = Storage.loadBook();
+    let index = 0;
+    for (let i = 0; i < books.length; i += 1) {
+      if (Number(books[i].id) === Number(removeElement.id)) {
+        index = i;
+      }
+    }
+    books.splice(index, 1);
+    localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+  }
+}
+
+class Page {
+  static displayBook() {
+    const booksStore = Storage.loadBook();
+    for (let i = 0; i < booksStore.length; i += 1) {
+      Page.addBookToPage(booksStore[i]);
+    }
+  }
+
+  static addBookToPage(newBook) {
+    const books = Storage.loadBook();
+    books.push(newBook);
+    const bookLi = document.createElement('li');
+    bookLi.id = `book-${newBook.id}`;
+    bookList.appendChild(bookLi);
+    const bookTitleP = document.createElement('p');
+    bookTitleP.innerHTML = newBook.title;
+    bookLi.appendChild(bookTitleP);
+    const bookAuthorP = document.createElement('p');
+    bookAuthorP.innerHTML = newBook.author;
+    bookLi.appendChild(bookAuthorP);
+    const removeButton = document.createElement('button');
+    removeButton.className = 'remove-button';
+    removeButton.innerHTML = 'Remove';
+    removeButton.id = newBook.id;
+    bookLi.appendChild(removeButton);
+    const hrLi = document.createElement('hr');
+    bookLi.appendChild(hrLi);
+    removeButton.addEventListener('click', removeBook);
+  }
+
+  static removeBookFromPage(removeElement) {
+    removeElement.parentElement.remove();
+  }
 }
 
 function removeBook() {
-  let index = 0;
-  for (let i = 0; i < books.length; i += 1) {
-    if (Number(books[i].id) === Number(this.id)) {
-      index = i;
+  Page.removeBookFromPage(this);
+  Storage.removeFromStorage(this);
+}
+
+class Counter {
+  static getCount() {
+    let cont = 0;
+    if (!localStorage.itemCount) {
+      localStorage.setItem('itemCount', JSON.stringify(0));
+    } else {
+      cont = Number(JSON.parse(localStorage.getItem('itemCount')));
     }
+    return cont;
   }
-  books.splice(index, 1);
-  bookList.removeChild(document.getElementById(`book-${this.id}`));
-  localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+
+  static saveCount(idCount) {
+    localStorage.setItem('itemCount', JSON.stringify(idCount));
+  }
 }
 
-const localStorageBooks = JSON.parse(localStorage.getItem('myStringifyStorage'));
-let idCount = JSON.parse(localStorage.getItem('itemCount'));
+document.addEventListener('DOMContentLoaded', Page.displayBook);
 
-for (let i = 0; i < localStorageBooks.length; i += 1) {
-  books.push(localStorageBooks[i]);
-  const bookLi = document.createElement('li');
-  bookLi.id = `book-${localStorageBooks[i].id}`;
-  bookList.appendChild(bookLi);
-  const bookTitleP = document.createElement('p');
-  bookTitleP.innerHTML = localStorageBooks[i].title;
-  bookLi.appendChild(bookTitleP);
-  const bookAuthorP = document.createElement('p');
-  bookAuthorP.innerHTML = localStorageBooks[i].author;
-  bookLi.appendChild(bookAuthorP);
-  const removeButton = document.createElement('button');
-  removeButton.className = 'remove-button';
-  removeButton.innerHTML = 'Remove';
-  removeButton.id = localStorageBooks[i].id;
-  bookLi.appendChild(removeButton);
-  const hrLi = document.createElement('hr');
-  bookLi.appendChild(hrLi);
-  removeButton.addEventListener('click', removeBook);
-}
-
-function addBook() {
+function addBook(event) {
+  event.preventDefault();
+  let idCount = Counter.getCount();
   idCount += 1;
   const newBook = new Book(idCount, bookTitle.value, bookAuthor.value);
-  books.push(newBook);
-  const bookLi = document.createElement('li');
-  bookLi.id = `book-${newBook.id}`;
-  bookList.appendChild(bookLi);
-  const bookTitleP = document.createElement('p');
-  bookTitleP.innerHTML = newBook.title;
-  bookLi.appendChild(bookTitleP);
-  const bookAuthorP = document.createElement('p');
-  bookAuthorP.innerHTML = newBook.author;
-  bookLi.appendChild(bookAuthorP);
-  const removeButton = document.createElement('button');
-  removeButton.className = 'remove-button';
-  removeButton.innerHTML = 'Remove';
-  removeButton.id = newBook.id;
-  bookLi.appendChild(removeButton);
-  const hrLi = document.createElement('hr');
-  bookLi.appendChild(hrLi);
-  removeButton.addEventListener('click', removeBook);
-  localStorage.setItem('myStringifyStorage', JSON.stringify(books));
-  localStorage.setItem('itemCount', JSON.stringify(idCount));
+  Page.addBookToPage(newBook);
+  Storage.addBookToStorage(newBook);
+  Counter.saveCount(idCount);
   bookTitle.value = '';
   bookAuthor.value = '';
 }
 
-submitButton.addEventListener('click', addBook);
+mainForm.addEventListener('submit', addBook);
