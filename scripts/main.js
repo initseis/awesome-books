@@ -1,5 +1,7 @@
-const books = [];
-const count = 0;
+const mainForm = document.getElementById('main-form');
+const bookTitle = document.getElementById('book-title');
+const bookAuthor = document.getElementById('book-author');
+const bookList = document.querySelector('.book-list');
 
 class Book {
   constructor(id, title, author) {
@@ -9,15 +11,46 @@ class Book {
   }
 }
 
+class Storage {
+  static loadBook() {
+    let books = [];
+    if (!localStorage.myStringifyStorage) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('myStringifyStorage'));
+    }
+    return books;
+  }
+
+  static addBookToStorage(newBook) {
+    const books = Storage.loadBook();
+    books.push(newBook);
+    localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+  }
+
+  static removeFromStorage(removeElement) {
+    const books = Storage.loadBook();
+    let index = 0;
+    for (let i = 0; i < books.length; i += 1) {
+      if (Number(books[i].id) === Number(removeElement.id)) {
+        index = i;
+      }
+    }
+    books.splice(index, 1);
+    localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+  }
+}
+
 class Page {
-  static displayBook(){
+  static displayBook() {
     const booksStore = Storage.loadBook();
-    for (let i = 0; i < booksStore.length; i++) {
+    for (let i = 0; i < booksStore.length; i += 1) {
       Page.addBookToPage(booksStore[i]);
     }
   }
 
-  static addBookToPage(newBook){
+  static addBookToPage(newBook) {
+    const books = Storage.loadBook();
     books.push(newBook);
     const bookLi = document.createElement('li');
     bookLi.id = `book-${newBook.id}`;
@@ -37,66 +70,45 @@ class Page {
     bookLi.appendChild(hrLi);
     removeButton.addEventListener('click', removeBook);
   }
-  static removeBookFromPage(removeElement){
+
+  static removeBookFromPage(removeElement) {
     removeElement.parentElement.remove();
   }
 }
 
-class Storage {
-  static loadBook() {
-    let books = [];
-    if (!localStorage.myStringifyStorage) {
-      books = [];
-    } else{
-      books = JSON.parse(localStorage.getItem('myStringifyStorage'));
-    }
-    return books;
-  }
-
-  static addBookToStorage(newBook) {
-    const books = Storage.loadBook();
-    books.push(newBook);
-    localStorage.setItem('myStringifyStorage', JSON.stringify(books));
-  }
-}
-
-const submitButton = document.getElementById('submit-button');
-const bookTitle = document.getElementById('book-title');
-const bookAuthor = document.getElementById('book-author');
-const bookList = document.querySelector('.book-list');
-
-if (!localStorage.itemCount) {
-  localStorage.setItem('itemCount', JSON.stringify(count));
-}
-
 function removeBook() {
-  let index = 0;
-  for (let i = 0; i < books.length; i += 1) {
-    if (Number(books[i].id) === Number(this.id)) {
-      index = i;
-    }
-  }
-  books.splice(index, 1);
   Page.removeBookFromPage(this);
-  localStorage.setItem('myStringifyStorage', JSON.stringify(books));
+  Storage.removeFromStorage(this);
 }
 
-const localStorageBooks = JSON.parse(localStorage.getItem('myStringifyStorage'));
-let idCount = JSON.parse(localStorage.getItem('itemCount'));
+class Counter {
+  static getCount() {
+    let cont = 0;
+    if (!localStorage.itemCount) {
+      localStorage.setItem('itemCount', JSON.stringify(0));
+    } else {
+      cont = Number(JSON.parse(localStorage.getItem('itemCount')));
+    }
+    return cont;
+  }
 
+  static saveCount(idCount) {
+    localStorage.setItem('itemCount', JSON.stringify(idCount));
+  }
+}
 
-function addBook() {
+document.addEventListener('DOMContentLoaded', Page.displayBook);
+
+function addBook(event) {
+  event.preventDefault();
+  let idCount = Counter.getCount();
   idCount += 1;
   const newBook = new Book(idCount, bookTitle.value, bookAuthor.value);
   Page.addBookToPage(newBook);
   Storage.addBookToStorage(newBook);
+  Counter.saveCount(idCount);
   bookTitle.value = '';
   bookAuthor.value = '';
 }
 
-submitButton.addEventListener('click', addBook);
-
-
-// 1 Class for constructor 
-// 2nd for local storage
-// 3rd frontend 
+mainForm.addEventListener('submit', addBook);
