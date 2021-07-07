@@ -53,21 +53,17 @@ class Page {
     const books = Storage.loadBook();
     books.push(newBook);
     const bookLi = document.createElement('li');
+    bookLi.className = 'd-flex justify-content-between p-3';
     bookLi.id = `book-${newBook.id}`;
     bookList.appendChild(bookLi);
     const bookTitleP = document.createElement('p');
-    bookTitleP.innerHTML = newBook.title;
+    bookTitleP.innerHTML = newBook.title + " by " + newBook.author;
     bookLi.appendChild(bookTitleP);
-    const bookAuthorP = document.createElement('p');
-    bookAuthorP.innerHTML = newBook.author;
-    bookLi.appendChild(bookAuthorP);
     const removeButton = document.createElement('button');
     removeButton.className = 'remove-button';
     removeButton.innerHTML = 'Remove';
     removeButton.id = newBook.id;
     bookLi.appendChild(removeButton);
-    const hrLi = document.createElement('hr');
-    bookLi.appendChild(hrLi);
     removeButton.addEventListener('click', removeBook);
   }
 
