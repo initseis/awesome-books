@@ -53,21 +53,18 @@ class Page {
     const books = Storage.loadBook();
     books.push(newBook);
     const bookLi = document.createElement('li');
+    bookLi.className = 'd-flex justify-content-between px-3 py-2 align-items-center';
     bookLi.id = `book-${newBook.id}`;
     bookList.appendChild(bookLi);
     const bookTitleP = document.createElement('p');
-    bookTitleP.innerHTML = newBook.title;
+    bookTitleP.className = 'm-0';
+    bookTitleP.innerHTML = `"${newBook.title}" by ${newBook.author}`;
     bookLi.appendChild(bookTitleP);
-    const bookAuthorP = document.createElement('p');
-    bookAuthorP.innerHTML = newBook.author;
-    bookLi.appendChild(bookAuthorP);
     const removeButton = document.createElement('button');
-    removeButton.className = 'remove-button';
+    removeButton.className = 'remove-button btn btn-outline-primary';
     removeButton.innerHTML = 'Remove';
     removeButton.id = newBook.id;
     bookLi.appendChild(removeButton);
-    const hrLi = document.createElement('hr');
-    bookLi.appendChild(hrLi);
     removeButton.addEventListener('click', removeBook);
   }
 

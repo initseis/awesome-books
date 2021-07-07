@@ -2,7 +2,7 @@
 
 > This is my website for Awesome Books.
 
-![screenshot](./img/plain-html.png)
+![screenshot](./img/awesome-books.png)
 
 ## Built With
 
@@ -18,11 +18,16 @@ Remove a book and you will see it dissapear from the page.
 ## Authors
 
 👤 **Kevin**
-👤 **ASAD**
 
 - GitHub: [@sevinchek](https://github.com/sevinchek)
 - Twitter: [@sevinchek](https://twitter.com/sevinchek)
 - LinkedIn: [LinkedIn](https://linkedin.com/in/sevinchek)
+
+👤 **Abmasadullah**
+
+- GitHub: [@abmasadullah](https://github.com/abmasadullah)
+- Twitter: [@abmasadullah](https://twitter.com/abmasadullah)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/abmasadullah)
 
 ## 🤝 Contributing
 
