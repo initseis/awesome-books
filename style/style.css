@@ -8,11 +8,10 @@ ul {
   padding: 0;
 }
 
-li { 
-  background: #E8F0F2;
+li {
+  background: #e8f0f2;
 }
 
-li:nth-child(odd) { 
-  background: #A2DBFA
-  ;
+li:nth-child(odd) {
+  background: #a2dbfa;
 }

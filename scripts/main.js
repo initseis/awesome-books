@@ -53,11 +53,12 @@ class Page {
     const books = Storage.loadBook();
     books.push(newBook);
     const bookLi = document.createElement('li');
-    bookLi.className = 'd-flex justify-content-between p-3';
+    bookLi.className = 'd-flex justify-content-between px-3 py-2 align-items-center';
     bookLi.id = `book-${newBook.id}`;
     bookList.appendChild(bookLi);
     const bookTitleP = document.createElement('p');
-    bookTitleP.innerHTML = newBook.title + " by " + newBook.author;
+    bookTitleP.className = 'm-0';
+    bookTitleP.innerHTML = `"${newBook.title}" by ${newBook.author}`;
     bookLi.appendChild(bookTitleP);
     const removeButton = document.createElement('button');
     removeButton.className = 'remove-button btn btn-outline-primary';
