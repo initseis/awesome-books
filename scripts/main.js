@@ -60,7 +60,7 @@ class Page {
     bookTitleP.innerHTML = newBook.title + " by " + newBook.author;
     bookLi.appendChild(bookTitleP);
     const removeButton = document.createElement('button');
-    removeButton.className = 'remove-button';
+    removeButton.className = 'remove-button btn btn-outline-primary';
     removeButton.innerHTML = 'Remove';
     removeButton.id = newBook.id;
     bookLi.appendChild(removeButton);

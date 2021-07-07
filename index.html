@@ -12,22 +12,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet"> 
 </head>
-<body>
+<body class="bg-light">
   <div class="container">
     <main class="pt-5 bg-light">
-      <h1 class="text-center">All Awesome Books</h1>
-      <ul class="book-list border border-2 border-danger rounded-2 p-0">
+      <h1 class="text-center text-primary">All Awesome Books</h1>
+      <ul class="book-list border border-2 border-primary rounded-3 p-0">
       </ul>
     </main>
     <hr class="w-25 m-0 mx-auto border border-dark border-1 my-5">
     <section class="">
-      <h2 class="text-center my-3">Add a new book</h2>
-      <form method='POST' id="main-form" class="m-3 text-center">
+      <h2 class="text-center my-3 text-primary">Add a new book</h2>
+      <form method='POST' id="main-form" class="w-25 text-center mx-auto d-flex flex-column align-items-justify">
         <input type="text" placeholder="Title" id="book-title" required>
-        <br><br>
+        <br>
         <input type="text" placeholder="Author" id="book-author" required>
-        <br><br>
-        <button type="submit" id="submit-button" class="d-flex justify-content-end">Add</button>
+        <br>
+        <button type="submit" id="submit-button" class="align-self-end btn btn-primary px-3 py-1">Add</button>
       </form>
     </section>
   </div>
