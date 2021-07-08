@@ -2,21 +2,8 @@
   font-family: Roboto, sans-serif;
 }
 
-
 nav,
 footer {
-  background: #a2dbfa;
-}
-
-nav > ul > li:hover {
-  background-color: #fff;
-}
-
-nav > ul {
-  list-style: none;
-}
-
-.book-list > li:nth-child(odd) {
   background: #a2dbfa;
 }
 
@@ -24,6 +11,18 @@ nav > ul {
   list-style: none;
 }
 
-#main-section{
+nav > ul > li:hover {
+  background-color: #fff;
+}
+
+.navbar > ul {
+  list-style: none;
+}
+
+.book-list > li:nth-child(odd) {
+  background: #a2dbfa;
+}
+
+#main-section {
   margin-bottom: 80px;
 }

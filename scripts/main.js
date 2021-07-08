@@ -8,9 +8,8 @@ const contactA = document.getElementById('contact-option');
 const logoA = document.getElementById('awesome-logo');
 const dateTime = document.getElementById('date-time');
 const d = new Date();
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-dateTime.innerHTML =  months[d.getMonth()] +' '+ d.getDate() + 'th  ' + d.getUTCFullYear() + ', ' + d.getHours() + ':' + d.getMinutes()+':'+d.getSeconds();
-
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+dateTime.innerHTML = `${months[d.getMonth()]} ${d.getDate()}th  ${d.getUTCFullYear()}, ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
 
 class Book {
   constructor(id, title, author) {
