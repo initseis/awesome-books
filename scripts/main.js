@@ -6,10 +6,9 @@ const listA = document.getElementById('list-option');
 const newBookA = document.getElementById('new-book-option');
 const contactA = document.getElementById('contact-option');
 const logoA = document.getElementById('awesome-logo');
-const dateTime = document.getElementById('date-time');
-const d = new Date();
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-dateTime.innerHTML = `${months[d.getMonth()]} ${d.getDate()}th  ${d.getUTCFullYear()}, ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+const dateH6 = document.getElementById('date-time');
+const dateTime = luxon.DateTime;
+dateH6.innerHTML = dateTime.now().toLocaleString(dateTime.DATETIME_MED);
 
 class Book {
   constructor(id, title, author) {
