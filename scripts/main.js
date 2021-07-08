@@ -2,6 +2,13 @@ const mainForm = document.getElementById('main-form');
 const bookTitle = document.getElementById('book-title');
 const bookAuthor = document.getElementById('book-author');
 const bookList = document.querySelector('.book-list');
+const listA = document.getElementById('list-option');
+const newBookA = document.getElementById('new-book-option');
+const contactA = document.getElementById('contact-option');
+const logoA = document.getElementById('awesome-logo');
+const dateH6 = document.getElementById('date-time');
+const dateTime = luxon.DateTime;
+dateH6.innerHTML = dateTime.now().toLocaleString(dateTime.DATETIME_MED);
 
 class Book {
   constructor(id, title, author) {
@@ -109,3 +116,31 @@ function addBook(event) {
 }
 
 mainForm.addEventListener('submit', addBook);
+
+function displayListBookPage(e) {
+  e.preventDefault();
+  document.getElementById('main-section').style.display = 'block';
+  document.getElementById('add-book-section').style.display = 'none';
+  document.getElementById('contact-section').style.display = 'none';
+}
+
+function displayAddBookPage(e) {
+  e.preventDefault();
+  document.getElementById('main-section').style.display = 'none';
+  document.getElementById('add-book-section').style.display = 'block';
+  document.getElementById('contact-section').style.display = 'none';
+}
+
+function displayContactPage(e) {
+  e.preventDefault();
+  document.getElementById('main-section').style.display = 'none';
+  document.getElementById('add-book-section').style.display = 'none';
+  document.getElementById('contact-section').style.display = 'block';
+}
+
+listA.addEventListener('click', displayListBookPage);
+newBookA.addEventListener('click', displayAddBookPage);
+contactA.addEventListener('click', displayContactPage);
+logoA.addEventListener('click', displayListBookPage);
+mainForm.addEventListener('submit', displayListBookPage);
+document.addEventListener('DOMContentLoaded', displayListBookPage);
