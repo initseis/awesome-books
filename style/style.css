@@ -2,9 +2,6 @@
   font-family: Roboto, sans-serif;
 }
 
-ul {
-  list-style: none;
-}
 
 nav,
 footer {
@@ -15,6 +12,14 @@ nav > ul > li:hover {
   background-color: #fff;
 }
 
-li:nth-child(odd) {
+nav > ul {
+  list-style: none;
+}
+
+.book-list > li:nth-child(odd) {
   background: #a2dbfa;
+}
+
+.book-list > li {
+  list-style: none;
 }
