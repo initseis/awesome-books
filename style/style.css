@@ -23,3 +23,7 @@ nav > ul {
 .book-list > li {
   list-style: none;
 }
+
+#main-section{
+  margin-bottom: 80px;
+}

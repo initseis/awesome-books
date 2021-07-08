@@ -6,6 +6,11 @@ const listA = document.getElementById('list-option');
 const newBookA = document.getElementById('new-book-option');
 const contactA = document.getElementById('contact-option');
 const logoA = document.getElementById('awesome-logo');
+const dateTime = document.getElementById('date-time');
+const d = new Date();
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+dateTime.innerHTML =  months[d.getMonth()] +' '+ d.getDate() + 'th  ' + d.getUTCFullYear() + ', ' + d.getHours() + ':' + d.getMinutes()+':'+d.getSeconds();
+
 
 class Book {
   constructor(id, title, author) {
@@ -139,5 +144,5 @@ listA.addEventListener('click', displayListBookPage);
 newBookA.addEventListener('click', displayAddBookPage);
 contactA.addEventListener('click', displayContactPage);
 logoA.addEventListener('click', displayListBookPage);
-
+mainForm.addEventListener('submit', displayListBookPage);
 document.addEventListener('DOMContentLoaded', displayListBookPage);
