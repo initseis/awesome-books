@@ -4,12 +4,15 @@
 
 ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
-li {
-  background: #e8f0f2;
+nav,
+footer {
+  background: #a2dbfa;
+}
+
+nav > ul > li:hover {
+  background-color: #fff;
 }
 
 li:nth-child(odd) {
